@@ -1,3 +1,6 @@
+### About the App
+Those rows which have less than 4 columns or invalid year/month/day will be skipped.  
+
 ### Steps to run this program
 
 ##### Install
@@ -10,8 +13,8 @@ To verify it is successfully installed, run command `go version` on your termina
 `go build rollup.go`
 
 ##### Run this app
-`./rollup ./input.tsv y m d` will aggregate over all the prefixes of [y, m, d]
-`./rollup ./input.tsv y m` will aggregate over all the prefixes of [y, m]
-`./rollup ./input.tsv y` will aggregate over all the prefixes of [y]
-`./rollup ./input.tsv` same as `./rollup ./input.tsv y m d` 
+`./rollup ./input.tsv y m d` will aggregate over all the prefixes of [y, m, d]  
+`./rollup ./input.tsv y m` will aggregate over all the prefixes of [y, m]  
+`./rollup ./input.tsv y` will aggregate over all the prefixes of [y]  
+`./rollup ./input.tsv` same as `./rollup ./input.tsv y m d`  
 
