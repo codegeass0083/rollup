@@ -11,16 +11,24 @@ import (
 
 func main() {
 	var err error
-	outputColumns := os.Args[1:]
-	outputFirstLine := strings.Join(outputColumns, "\t") + "\tvalue"
-	printOutput(outputFirstLine)
-	// data processing
+	// read from stdin
 	input, err := ioutil.ReadAll(os.Stdin)
 	checkErr(err)
 	lines := strings.Split(string(input), "\n")
 	inputColumnString := lines[0]
-	records := lines[1:]
 	inputColumns := strings.Split(inputColumnString, "\t")
+	var outputFirstLine string
+	var outputColumns []string
+	// if no arguments are specified, the list of columns is assumed to be all but the final column
+	if len(os.Args) == 1 {
+		outputColumns = inputColumns[:len(inputColumns)-1]
+		outputFirstLine = inputColumnString
+	} else {
+		outputColumns = os.Args[1:]
+		outputFirstLine = strings.Join(outputColumns, "\t") + "\tvalue"
+	}
+	printOutput(outputFirstLine)
+	records := lines[1:]
 	// convert records slice to map and do initial aggregation
 	recordMap := make(map[string]int64)
 	for _, record := range records {
@@ -74,11 +82,18 @@ func generateKV(record string, output, input []string) (string, int64) {
 
 func generateKeyIndex(output, input []string) []int {
 	ret := make([]int, len(output))
+	for i := range ret {
+		ret[i] = -1
+	}
 	for index, outputStr := range output {
 		for i, inputStr := range input {
 			if inputStr == outputStr {
 				ret[index] = i
 			}
+		}
+		if ret[index] == -1 {
+			fmt.Printf("Argument %s does not match any column from input file\n", outputStr)
+			os.Exit(1)
 		}
 	}
 	return ret
