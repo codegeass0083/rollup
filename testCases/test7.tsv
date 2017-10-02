@@ -1,0 +1,7 @@
+aa	bb	cc	dd	ee	ff	gg	hh	jj	kk	value
+**	3	28	100	ss	1	j	ttt	nn	100	100
+&&	3	28	100	hhh	1	j	ttt	nn	100	-10
+&&	3	90	100	hhh	1	j	ttt	nn	100	33
+{}	3	90	100	ss	1	j	ttt	nn	100	-90
+{}	3	28	100	ss	1	i	xx	nn	100	44
+**	3	28	100	ss	1	i	ttbbbt	sss	100	0
