@@ -70,7 +70,12 @@ func generateKV(record string, output, input []string) (string, int64) {
 	keyIndex := generateKeyIndex(output, input)
 	recordSlice := strings.Split(record, "\t")
 	recordLen := len(recordSlice)
-	value, err := strconv.ParseInt(recordSlice[recordLen-1], 10, 64)
+	valueIndex := recordLen - 1
+	if recordSlice[valueIndex] == "" {
+		// ignore the trailing tab
+		valueIndex = recordLen - 2
+	}
+	value, err := strconv.ParseInt(recordSlice[valueIndex], 10, 64)
 	checkErr(err)
 	var buffer bytes.Buffer
 	for _, i := range keyIndex {
